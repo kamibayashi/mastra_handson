@@ -1,11 +1,6 @@
 import { Agent } from '@mastra/core/agent'
-import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { webScraperTool, webSearchTool, newsExtractorTool } from '../tools'
-
-// Google Gemini AIプロバイダーの作成
-const google = createGoogleGenerativeAI({
-  apiKey: process.env.GOOGLE_API_KEY || '',
-})
+import { getDefaultModel } from '../models'
 
 /**
  * Webニュース収集・分析エージェント
@@ -50,7 +45,7 @@ export const webNewsAgent = new Agent({
 
 注意：Brave Search APIを使用するには、環境変数「BRAVE_SEARCH_API_KEY」が設定されている必要があります。
 設定されていない場合は、その旨を伝えてください。`,
-  model: google('gemini-2.0-flash'),
+  model: getDefaultModel(),
   tools: {
     webScraperTool,
     webSearchTool,

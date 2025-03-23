@@ -3,7 +3,7 @@ import { webScraperTool, webSearchTool, newsExtractorTool } from '../tools'
 import { Memory } from '@mastra/memory'
 import { LibSQLStore } from '@mastra/core/storage/libsql'
 import { LibSQLVector } from '@mastra/core/vector/libsql'
-import { google } from '../models'
+import { getDefaultModel } from '../models'
 
 // aiResearchAgentのメモリ
 const aiResearchMemory = new Memory({
@@ -74,14 +74,17 @@ AI分野に特化した質問に対して、最新かつ正確な情報を効率
 上記を踏まえて以下を実行してください。
 
 1. 収集した記事のタイトルを日本語に翻訳して表示してください。
-2. 収集した記事のURLにアクセスし、記事の内容を要約して日本語に翻訳して表示してください。
+2. 収集した記事のURLにアクセスし、記事の内容を全部読まなくても重要な内容が把握できるように要約し、日本語に翻訳して表示してください。
 3. 収集した記事のURLを表示してください。
 4. 収集した記事の日付や著者を表示してください。
 5. その他、あなたが気づいたり、必要だと感じたことを表示してください。
 
-注意：Brave Search APIを使用するには、環境変数「BRAVE_SEARCH_API_KEY」が設定されている必要があります。
+注意：
+- 検索パラメーターの言語コードと国コードは異なるので注意してください。
+- Brave Search APIを使用するには、環境変数「BRAVE_SEARCH_API_KEY」が設定されている必要があります。
+
 設定されていない場合は、その旨を伝えてください。`,
-  model: google('gemini-2.0-flash'),
+  model: getDefaultModel(),
   tools: {
     webScraperTool,
     webSearchTool,
